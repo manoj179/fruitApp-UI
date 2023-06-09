@@ -1,0 +1,76 @@
+<div class="image-container" *ngIf="fruiteForm">
+    <button class="btn btn-warning" *ngIf="userIsAdmin()" (click)="navigateToManage(0)">Add Fruit</button>
+    <form [formGroup]="fruiteForm">
+        <div class="img-container-outer d-flex justify-content-center flex-wrap">
+            <div class="img-inner" *ngFor="let fruit of getFormArrayControl();let i=index" formArrayName="fruits">
+                <div class="img">
+                    <img *ngIf="this.fruit.get('imgUrl').value==null" src="./assets/images/placeholder.jpg" width="100%">
+                    <img *ngIf="this.fruit.get('imgUrl').value!=null" [src]="this.fruit.get('imgUrl').value" width="100%">
+                </div>
+                <div class="content-placeholder">
+                    <div class="d-flex mt-2 align-items-center justify-content-left">
+                        <span class="h4 img-name">{{this.fruit.get('name').value}}</span>
+                    </div>
+                    <div class="img-desc mt-2" [formGroupName]="i">
+                        <div class="img-price d-flex" style="flex-direction:column;">
+                            <span>
+                                {{this.fruit.get('pricePerKG').value | currency:'INR'}}/Kg
+                            </span>
+                            <span>
+                                <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                                    <span *ngIf="(getFormArrayValues('availibility',i)>0)">Instock: <b>{{this.fruit.get('availibility').value | number:'1.0-3'}}</b> Kg</span>
+                                    <span class="text-danger" *ngIf="(getFormArrayValues('availibility',i)==0)">Out Of Stock</span>
+                                </span>
+                                
+                            </span>
+                        </div>
+                        <div class="order-qty mt-1 row">
+                            <div class="col-8">
+    
+                            </div>
+                            <div  class="col-4 d-flex align-items-center justify-content-end">
+                                <input type="text" (focusout)="qtyChange(i)" 
+                                oninput="this.value = this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1')" formControlName="orderQty" class="form-control"/><br/>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <span><small>Qty only multiples of 0.5<span class="text-danger">*</span></small></span>
+                        </div>
+                        <div class="img-button-holder mt-3" *ngIf="!userIsAdmin()">
+                            <button [class.disabled]="(getFormArrayValues('availibility',i)==0)" [disabled]="(getFormArrayValues('availibility',i)==0)" (click)="orderFruit(i,content)" style="width: 100%;" class="btn btn-outline-success btn-block">
+                                <i class="bi bi-bag-fill"></i>&nbsp;Order
+                            </button>
+                        </div>
+                        <div class="img-button-holder mt-3" *ngIf="userIsAdmin()">
+                            <button (click)="navigateToEdit(i)" style="width: 100%;" class="btn btn-outline-primary btn-block">
+                                <i class="bi bi-pencil"></i>&nbsp;Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Order</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<span class="h4">Order Details</span><br>
+        <b>Fruit:</b> {{getFormArrayValues('name',0)}} <br/>
+        <b>Quantity:</b> {{getFormArrayValues('orderQty',0)}}<br/><br/>
+        <span>This order will be places to:</span><br/>
+        <span class="h3">{{userDetails.name}}</span><br/>
+        <span>{{userDetails.email}}</span><br/>
+        <span>{{userDetails.phone}}</span><br/>
+        <span>{{userDetails.address}}</span>
+        <br/><br/><br/>
+        <small><b>Note: </b>If need to change details, please update your user details</small>
+	</div>
+	<div class="modal-footer">
+		<button type="button" style="cursor: pointer;" class="btn btn-outline-dark" (click)="placeOrder()">Make Order</button>
+	</div>
+</ng-template>

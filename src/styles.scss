@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+
+@import 'bootstrap/scss/bootstrap';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color: #fbf9eb96;
+}
+
+.btn-primary{
+    background-color: #1e4b8d !important;
+}
+
+.form-control:focus,.form-select:focus{
+    box-shadow: none !important;
+    border-color: rgb(50, 50, 239);
+}
+
+.form-control{
+    border-color: #a09e91;
+}
+
+.login-container {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-outer {
+    width: 25%;
+}
+
+.login-inner > form > .row {
+    margin: 10px;
+}

@@ -1,0 +1,15 @@
+.login-container {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-outer {
+    width: 25%;
+}
+
+.login-inner > form > .row {
+    margin: 10px;
+}

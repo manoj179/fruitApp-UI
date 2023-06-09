@@ -1,0 +1,45 @@
+<h2 *ngIf="fruitId==0">Add Fruit</h2>
+<h2 *ngIf="fruitId!=0">Update Fruit</h2>
+
+<form [formGroup]="fruitForm">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <label>Fruit Name</label>
+                <input type="text" class="form-control" formControlName="name"/>
+            </div>
+            <div class="col-4">
+                <label>Price/Kg</label>
+                <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1')" class="form-control" formControlName="pricePerKG"/>
+            </div>
+            <div class="col-4">
+                <label>Availability</label>
+                <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1')" class="form-control" formControlName="availibility"/>
+            </div>
+            <div class="col-4">
+                <label>Active Status: </label>
+                <input type="checkbox" formControlName="isActive"/>
+            </div>
+        </div>
+        <div class="row" *ngIf="fruitId==0">
+            <div class="col-4">
+                <label class="btn-file">
+                    <input type="file" (change)="renderSelImg($event)"
+                        accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|images/*" />
+                    Add Image
+                </label>
+            </div>
+            <div class="col-4">
+               <img [src]="curImgUrl" width="100%"/>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <button class="btn btn-primary float-right" [disabled]="fruitForm.invalid" (click)="adOrUpdateFruit()">
+                    <span *ngIf="fruitId==0">Add Fruit</span>
+                    <span *ngIf="fruitId!=0">Update Fruit</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

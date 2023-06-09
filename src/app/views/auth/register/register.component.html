@@ -1,0 +1,52 @@
+<div class="login-container">
+    <div class="login-outer">
+        <div class="login-inner">
+            <form [formGroup]="registerForm">
+                <div class="row ">
+                    <span class="h2 d-flex justify-content-center">-Fruit App-</span>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label><small>User Name</small></label>
+                        <input type="text" formControlName="name" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label><small>Password</small></label>
+                        <input type="password" formControlName="password" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label><small>Email Address</small></label>
+                        <input type="email" formControlName="email" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label><small>Phone</small></label>
+                        <input type="tel" formControlName="phone" maxlength="10" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label><small>Address</small></label><br/>
+                        <textarea formControlName="address" class="form-control" rows="2" style="width: 100%;" cols="12"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="float-end" [class.btn-loading]="isSignUpStarted"
+                            [disabled]="isSignUpStarted || registerForm.invalid"
+                            class="btn btn-primary btn-login mr-2 mb-2 mb-md-0" (click)="register()">
+                            <span>Register</span>
+                        <img src="./assets/images/loader-trspt.gif" *ngIf="isSignUpStarted" width="20px" />
+                        </button>
+                    </div>
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

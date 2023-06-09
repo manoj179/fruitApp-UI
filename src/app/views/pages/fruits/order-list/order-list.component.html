@@ -1,0 +1,73 @@
+<h2>Order List</h2>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Ordered Date</th>
+                    <th *ngIf="currentUser.userType.toLocaleLowerCase()=='admin'">User Email</th>
+                    <th>Fruit</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                    <th>Delivery Date</th>
+                    <th *ngIf="currentUser.userType.toLocaleLowerCase()=='admin'">
+                     Update Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of purchaseList">
+                    <td>{{item.id}}</td>
+                    <td>{{item.purchasedDate | date:'short'}}</td>
+                    <td *ngIf="currentUser.userType.toLocaleLowerCase()=='admin'">{{item.userName}}</td>
+                    <td>{{item.orders[0].fruite.name}}</td>
+                    <td>{{item.orders[0].quantity}}</td>
+                    <td>{{item.totalPrice}}</td>
+                    <td>
+                        <span *ngIf="item.status=='Delivered'" class="badge badge-success">{{item.status}}</span>
+                        <span *ngIf="item.status=='cancelled'" class="badge badge-danger">{{item.status}}</span>
+                        <span *ngIf="item.status=='Order Placed'" class="badge badge-info">{{item.status}}</span>
+                    </td>
+                    <td>{{item.statusReason}}</td>
+                    <td>{{item.deliveredDate | date:'short'}}</td>
+                    <td *ngIf="currentUser.userType.toLocaleLowerCase()=='admin' && item.status!='cancelled' && item.status!='Delivered'">
+                        <span (click)="openPopUp(content,item)">
+                            <i class="bi bi-pencil-square"></i>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Order</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+        <div class="container">
+            <form [formGroup]="purchaseForm">
+                <div class="row">
+                    <div class="col-4">
+                        <select formControlName="status" class="form-select">
+                            <option value="Delivered">Delivered</option>
+                            <option value="cancelled">Cancel</option>
+                        </select>            
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <button type="button mt-4" [disabled]="purchaseForm.invalid"
+                        class="btn btn-primary btn-sm" (click)="updateStatus();">Update</button>   
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+</ng-template>
