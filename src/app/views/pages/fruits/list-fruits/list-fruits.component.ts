@@ -125,6 +125,15 @@ export class ListFruitsComponent implements OnInit {
 		);
   }
 
+  clearAndReloadData(){
+    this.currentOrderIndex = 0;
+    this.fruiteList = new Array<Fruite>();
+    this.orderQty=[];
+    this.initializeForm();
+    this.getFruitList();
+    this.modalService.dismissAll();
+  }
+
   async placeOrder(){
     if(parseFloat((<FormArray>this.fruiteForm.get('fruits')).controls[this.currentOrderIndex].get('orderQty').value)==0){
       this.toast.warning('Plz add order qty');
@@ -160,10 +169,9 @@ export class ListFruitsComponent implements OnInit {
         var purchaseRes = await this.purchase.addItemToCart(res.data);
         if(res.status){
           this.toast.success('Order placed with total amount: rs '+total);
-          // this.initializeForm();
-          // this.getFruitList();
-          // this.modalService.dismissAll();
-          location.reload();
+         
+          // location.reload();
+          this.clearAndReloadData();
         }
         else{
           this.toast.warning(res.message);
