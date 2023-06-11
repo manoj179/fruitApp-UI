@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   initializeForm(){
     this.loginForm = this.fb.group({
-      userEmail: ['',[Validators.required,Validators.email]],
+      emailAddress: ['',[Validators.required,Validators.email]],
       password: ['',[Validators.required,Validators.minLength(3)]]
     });
   }
@@ -41,11 +41,12 @@ export class LoginComponent implements OnInit {
     this.isSignUpStarted = true;
     console.log(this.loginForm.getRawValue());
     try{
-      var res = await this.userService.loginUser(this.loginForm.value.userEmail,this.loginForm.value.password);
+      var res = await this.userService.loginUser(this.loginForm.getRawValue());
       if(res.status){
         sessionStorage.setItem("isLoggedIn",'true');
         sessionStorage.setItem("userData",JSON.stringify(res.data));
         sessionStorage.setItem('userType',res.data.userType);
+        sessionStorage.setItem('accessToken',res.token);
 
         if((<User>res.data).userType.toLocaleLowerCase()=='admin'){
           this.router.navigate(['/fruit/list']);

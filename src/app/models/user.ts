@@ -9,4 +9,5 @@ export class User {
     address: string;
     pincode: number;
     createdOn: string;
+    token:string;
 }

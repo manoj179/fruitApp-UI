@@ -10,8 +10,8 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  async loginUser(userName,passsword){
-    return this.http.get<ResponseObject>(`${environment.apiUrl}/User/login/${userName}/${passsword}`).toPromise();
+  async loginUser(data){
+    return this.http.post<ResponseObject>(`${environment.apiUrl}/User/login`,data).toPromise();
   }
 
   async register(userData){

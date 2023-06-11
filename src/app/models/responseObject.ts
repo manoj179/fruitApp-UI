@@ -3,4 +3,5 @@ export interface ResponseObject {
     message: string;
     exception: string;
     data: any;
+    token:any;
 }
