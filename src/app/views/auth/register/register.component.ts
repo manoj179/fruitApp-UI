@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppNotification } from 'src/app/models/AppNotification';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -39,7 +40,7 @@ export class RegisterComponent implements OnInit {
     try{
       var res = await this.userService.register(this.registerForm.getRawValue());
       if(res.status){
-        this.toastr.success('Registered Successfully');
+        this.toastr.success(new AppNotification().RegisterNotification);
         this.router.navigate(['/auth/login'])
       }
       else{

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/6fd120c3-642e-4042-a7ee-3d043b8aba4d/resourceGroups/user-elojdkklrvso/providers/Microsoft.Web/sites/mnjfruitapp-web",
+    "appService.deploySubpath": "dist\\fruit-app-ui"
+}

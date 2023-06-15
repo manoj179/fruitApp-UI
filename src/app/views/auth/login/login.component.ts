@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
+import { SessionMgmtService } from 'src/app/services/session-mgmt.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,13 +15,13 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
 
   constructor(private fb:FormBuilder,private toastr: ToastrService,private userService:UserService,
-    private router:Router){}
+    private router:Router,private sessionService:SessionMgmtService){}
   loginForm: FormGroup;
   isSignUpStarted:boolean = false;
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("isLoggedIn")!=null && sessionStorage.getItem('userType')!=null){
-      if(sessionStorage.getItem('userType').toLocaleLowerCase()=='admin'){
+    if(sessionStorage.getItem("isLoggedIn")!=null && this.sessionService.getUserData()!=null){
+      if(this.sessionService.getUserData().userType.toLocaleLowerCase()=='admin'){
         this.router.navigate(['/fruit/list']);
       }
       else{
@@ -44,9 +45,9 @@ export class LoginComponent implements OnInit {
       var res = await this.userService.loginUser(this.loginForm.getRawValue());
       if(res.status){
         sessionStorage.setItem("isLoggedIn",'true');
-        sessionStorage.setItem("userData",JSON.stringify(res.data));
-        sessionStorage.setItem('userType',res.data.userType);
-        sessionStorage.setItem('accessToken',res.token);
+
+        this.sessionService.setUserData(res.data);
+        this.sessionService.setToken(res.token);
 
         if((<User>res.data).userType.toLocaleLowerCase()=='admin'){
           this.router.navigate(['/fruit/list']);

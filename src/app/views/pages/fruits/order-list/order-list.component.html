@@ -34,10 +34,17 @@
                     </td>
                     <td>{{item.statusReason}}</td>
                     <td>{{item.deliveredDate | date:'short'}}</td>
-                    <td *ngIf="currentUser.userType.toLocaleLowerCase()=='admin' && item.status!='cancelled' && item.status!='Delivered'">
-                        <span (click)="openPopUp(content,item)">
-                            <i class="bi bi-pencil-square"></i>
-                        </span>
+                    <td *ngIf="currentUser.userType.toLocaleLowerCase()=='admin'" class="d-flex justify-content-end">
+                        <div style="margin-right: 10px;" class="mr-5" *ngIf="item.status!='cancelled' && item.status!='Delivered'">
+                            <span (click)="openPopUp(content,item)">
+                                <i class='bx bx-edit bx-tada-hover bx-sm'></i>
+                            </span>
+                        </div>
+                        <div style="margin-right: 10px;" *ngIf="item.status=='cancelled' || item.status=='Delivered'">
+                            <span disable>
+                                <i class='bx bxs-notification-off bx-tada-hover bx-sm'></i>
+                            </span>
+                        </div>
                     </td>
                 </tr>
             </tbody>

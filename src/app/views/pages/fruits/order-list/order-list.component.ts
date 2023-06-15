@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Purchase } from 'src/app/models/purchase';
 import { User } from 'src/app/models/user';
 import { PurchaseService } from 'src/app/services/purchase.service';
+import { SessionMgmtService } from 'src/app/services/session-mgmt.service';
 
 @Component({
   selector: 'app-order-list',
@@ -15,11 +16,12 @@ import { PurchaseService } from 'src/app/services/purchase.service';
 export class OrderListComponent implements OnInit {
 
   constructor(private toast:ToastrService,private purchaseService:PurchaseService,
-    private modalService:NgbModal,private route: ActivatedRoute,private fb:FormBuilder){}
+    private modalService:NgbModal,private route: ActivatedRoute,private fb:FormBuilder,
+    private sessionService:SessionMgmtService){}
   
   purchaseForm:FormGroup;
   editingId:number = 0;
-  currentUser:User = <User>JSON.parse(sessionStorage.getItem("userData"));
+  currentUser:User = this.sessionService.getUserData();
   purchaseList:Purchase[] = new Array<Purchase>();
   userId:number = parseInt(this.route.snapshot.paramMap.get('id'));
   ngOnInit(): void {
@@ -32,8 +34,8 @@ export class OrderListComponent implements OnInit {
       this.purchaseService.getOrderByUserId(this.userId).then(res=>{
         if(res.status){
           this.purchaseList = res.data;
-          console.log(this.purchaseList);
-          console.log(this.purchaseList[0].orders[0].fruite.name);
+          // console.log(this.purchaseList);
+          // console.log(this.purchaseList[0].orders[0].fruite.name);
         }
         else{
           this.toast.warning(res.message);

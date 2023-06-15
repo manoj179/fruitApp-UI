@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { SessionMgmtService } from 'src/app/services/session-mgmt.service';
 
 @Component({
   selector: 'app-base',
@@ -9,24 +10,28 @@ import { User } from 'src/app/models/user';
 })
 export class BaseComponent {
 
-  constructor(private router:Router){}
+  userType:any;
+  constructor(private router:Router,private sessionService:SessionMgmtService,){
+    if(this.sessionService.getUserData()!=null){
+      this.userType = this.sessionService.getUserData().userType.toUpperCase();
+    }
+  }
 
   navigateToOrder(){
-    let currentUser = <User>JSON.parse(sessionStorage.getItem("userData"));
-    if((<User>JSON.parse(sessionStorage.getItem("userData"))).userType.toLocaleLowerCase()=="admin"){
+    if(this.sessionService.getUserData().userType.toLocaleLowerCase()=="admin"){
       this.router.navigate(['/fruit/order-list/0']);
     }
     else{
-      this.router.navigate([`/fruit/order-list/${currentUser.id}`]);
+      this.router.navigate([`/fruit/order-list/${this.sessionService.getUserData().id}`]);
     }
   }
 
   logiOut(){
-    sessionStorage.clear();
+    this.sessionService.clearSession();
     this.router.navigate(['/']);
   }
 
   userIsAdmin(){
-    return sessionStorage.getItem('userType').toLocaleLowerCase()=='admin'?true:false;
+    return this.sessionService.getUserData().userType=='admin'?true:false;
   }
 }

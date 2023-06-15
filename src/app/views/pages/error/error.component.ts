@@ -51,6 +51,6 @@ export class ErrorComponent implements OnInit {
   }
 
   navigateToIndexPage() {
-   this.router.navigate(['/']);
+   this.router.navigate(['/auth']);
   }
 }

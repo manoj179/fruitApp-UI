@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppNotification } from 'src/app/models/AppNotification';
 import { Fruite } from 'src/app/models/fruit';
 import { FruitService } from 'src/app/services/fruit.service';
 
@@ -36,6 +37,7 @@ export class AddFruiteComponent implements OnInit {
       pricePerKG: [0,[Validators.required,Validators.maxLength(3)]],
       availibility: [0,[Validators.required,Validators.maxLength(3)]],
       lastModified:[null],
+      imgUrl:[null],
       isActive: [true]
     });
   }
@@ -94,7 +96,7 @@ export class AddFruiteComponent implements OnInit {
 
         let res = await this.fruitService.addFruit(formData);
         if(res.status){
-          this.toast.success('Fruit Addedd Successfully');
+          this.toast.success(new AppNotification().AddNotification);
           this.router.navigate(['/fruit/list']);
         }
         else{
@@ -104,7 +106,7 @@ export class AddFruiteComponent implements OnInit {
       else{
         let res = await this.fruitService.updateFruit(this.fruitForm.getRawValue());
         if(res.status){
-          this.toast.success('Fruit Addedd Successfully');
+          this.toast.success(new AppNotification().UpdateNotification);
           this.router.navigate(['/fruit/list']);
         }
         else{

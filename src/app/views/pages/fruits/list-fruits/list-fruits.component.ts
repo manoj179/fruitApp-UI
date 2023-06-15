@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user';
 import { CartService } from 'src/app/services/cart.service';
 import { FruitService } from 'src/app/services/fruit.service';
 import { PurchaseService } from 'src/app/services/purchase.service';
+import { SessionMgmtService } from 'src/app/services/session-mgmt.service';
 
 @Component({
   selector: 'app-list-fruits',
@@ -25,7 +26,7 @@ export class ListFruitsComponent implements OnInit {
   userDetails:User;
   constructor(private toast:ToastrService,private router:Router,private fruitService:FruitService,
     private fb:FormBuilder,private modalService: NgbModal,private cartService:CartService,
-    private purchase:PurchaseService){}
+    private purchase:PurchaseService,private sessionService:SessionMgmtService){}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -36,7 +37,7 @@ export class ListFruitsComponent implements OnInit {
     this.fruiteForm = this.fb.group({
       fruits:this.fb.array([])
     });
-    this.userDetails = <User>JSON.parse(sessionStorage.getItem('userData'));
+    this.userDetails = this.sessionService.getUserData();
   }
 
   getArrayValues(property,i){
@@ -192,7 +193,7 @@ export class ListFruitsComponent implements OnInit {
   }
 
   userIsAdmin(){
-    return sessionStorage.getItem('userType').toLocaleLowerCase()=='admin'?true:false;
+    return this.sessionService.getUserData().userType.toLocaleLowerCase()=='admin'?true:false;
   }
 
   navigateToEdit(i){
