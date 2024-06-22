@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,31 @@ export class SessionMgmtService {
   constructor() { }
 
   getUserData():User{
-    return this.userData;
+    if(!environment.isProd){
+      return JSON.parse(sessionStorage.getItem('userData'));
+    }
+    else{
+      return this.userData;
+    }
   }
 
   setUserData(data){
-    this.userData =  data;
+    if(!environment.isProd){
+      sessionStorage.setItem('userData',JSON.stringify(data));
+    }
+    else{
+      this.userData =  data;
+    } 
   }
 
   setToken(token){
-    this.accessToken = token;
+    if(!environment.isProd){
+      sessionStorage.setItem('accessToken',token);
+    }
+    else{
+      this.accessToken = token;
+    }
+    
   }
 
   getToken():string{

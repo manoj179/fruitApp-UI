@@ -10,4 +10,5 @@ export class User {
     pincode: number;
     createdOn: string;
     token:string;
+    message:string;
 }

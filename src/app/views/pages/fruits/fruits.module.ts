@@ -7,6 +7,7 @@ import { ListFruitsComponent } from './list-fruits/list-fruits.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderListComponent } from './order-list/order-list.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { ChatboardComponent } from './chatboard/chatboard.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { UsersListComponent } from './users-list/users-list.component';
     AddFruiteComponent,
     ListFruitsComponent,
     OrderListComponent,
-    UsersListComponent
+    UsersListComponent,
+    ChatboardComponent
   ],
   imports: [
     CommonModule,

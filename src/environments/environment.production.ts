@@ -1,3 +1,5 @@
 export const environment = {
-    apiUrl:'https://mnjfruitapp-api.azurewebsites.net/api'
+    isProd: true,
+    apiUrl:'https://mnjfruitapp-api.azurewebsites.net/api',
+    baseUrl:'http://localhost:5233'
 };

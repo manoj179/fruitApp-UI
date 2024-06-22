@@ -13,6 +13,9 @@ import { authGuard } from './core/auth.guard';
 import { LayoutModule } from './views/layout/layout.module';
 import { ErrorComponent } from './views/pages/error/error.component';
 import { HttpInterceptorInterceptor } from './core/http-interceptor.interceptor';
+// import { APOLLO_OPTIONS } from 'apollo-angular';
+// import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { HttpInterceptorInterceptor } from './core/http-interceptor.interceptor'
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot(),
-    LayoutModule
+    LayoutModule,
+    // ApolloModule
   ],
   providers: [
     provideAnimations(),

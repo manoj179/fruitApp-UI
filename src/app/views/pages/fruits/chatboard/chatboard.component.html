@@ -1,0 +1,9 @@
+<p>chatboard works!</p>
+
+<input type="text" class="form-control" [(ngModel)]="message"/><br/>
+<button class="btn btn-primary btn-sm" (click)="sendMsg()">Send Message</button>
+
+<span>Received Message:&nbsp;</span><br/>
+<div class="container" [innerHTML]="recMsg">
+
+</div>

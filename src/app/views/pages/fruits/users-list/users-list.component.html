@@ -10,6 +10,7 @@
                    <th>Email</th>
                    <th>Phone</th>
                    <th>Address</th>
+                   <th>Send Message</th>
                    <th>Is Active</th>
                    <th>Update Status</th>
                 </tr>
@@ -21,6 +22,12 @@
                     <td>{{item.email}}</td>
                     <td>{{item.phone}}</td>
                     <td>{{item.address}}</td>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="item.message"/><br/>
+                        <button class="btn btn-primary btn-sm" (click)="sendMessage(item.message, item.id)">
+                            Send&nbsp;Message
+                        </button>
+                    </td>
                     <td>
                         <span *ngIf="item.isActive" class="text-success">Active</span>
                         <span *ngIf="!item.isActive" class="text-danger">InActive</span>
