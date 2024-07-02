@@ -4,4 +4,5 @@ export interface ResponseObject {
     exception: string;
     data: any;
     token:any;
+    refreshToken:string;
 }

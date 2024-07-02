@@ -4,7 +4,7 @@
         <div class="img-container-outer d-flex justify-content-center flex-wrap">
             <div class="img-inner" *ngFor="let fruit of getFormArrayControl();let i=index" formArrayName="fruits">
                 <div class="img">
-                    <img *ngIf="this.fruit.get('imgUrl').value==null" src="./assets/images/placeholder.jpg" width="100%">
+                    <img *ngIf="this.fruit.get('imgUrl').value==null || this.fruit.get('imgUrl').value==''" src="./assets/images/placeholder.jpg" width="100%">
                     <img *ngIf="this.fruit.get('imgUrl').value!=null" [src]="this.fruit.get('imgUrl').value" width="100%">
                 </div>
                 <div class="content-placeholder">

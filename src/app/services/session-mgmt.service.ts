@@ -9,10 +9,11 @@ export class SessionMgmtService {
 
   private userData:User
   private accessToken:string;
+  private refreshToken:string;
   constructor() { }
 
   getUserData():User{
-    if(!environment.isProd){
+    if(sessionStorage.getItem('userData')!=null){
       return JSON.parse(sessionStorage.getItem('userData'));
     }
     else{
@@ -21,26 +22,52 @@ export class SessionMgmtService {
   }
 
   setUserData(data){
-    if(!environment.isProd){
-      sessionStorage.setItem('userData',JSON.stringify(data));
-    }
-    else{
-      this.userData =  data;
-    } 
+    // if(!environment.isProd){
+    //   sessionStorage.setItem('userData',JSON.stringify(data));
+    // }
+    // else{
+    //   this.userData =  data;
+    // } 
+    sessionStorage.setItem('userData',JSON.stringify(data));
   }
 
   setToken(token){
-    if(!environment.isProd){
-      sessionStorage.setItem('accessToken',token);
+    // if(!environment.isProd){
+    //   sessionStorage.setItem('accessToken',token);
+    // }
+    // else{
+    //   this.accessToken = token;
+    // }
+    sessionStorage.setItem('accessToken',token);
+  }
+
+  get getToken():string{
+    if(sessionStorage.getItem('accessToken')!=null){
+      return sessionStorage.getItem('accessToken')
     }
     else{
-      this.accessToken = token;
+      return this.accessToken;
     }
     
   }
 
-  getToken():string{
-    return this.accessToken;
+  setRefreshToken(token){
+    if(sessionStorage.setItem('refreshToken',token)!=null){
+      sessionStorage.setItem('refreshToken',token);
+    }
+    else{
+      this.refreshToken = token;
+    }
+  }
+
+  get getRefreshToken():string{
+    if(sessionStorage.getItem('refreshToken')!=null){
+      return sessionStorage.getItem('refreshToken')
+    }
+    else{
+      return this.refreshToken;
+    }
+    
   }
 
   clearSession(){

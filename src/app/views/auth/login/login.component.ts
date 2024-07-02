@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
         this.sessionService.setUserData(res.data);
         this.sessionService.setToken(res.token);
+        this.sessionService.setRefreshToken(res.refreshToken);
         
         if((<User>res.data).userType.toLocaleLowerCase()=='admin'){
           this.router.navigate(['/fruit/list']);

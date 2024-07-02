@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderListComponent } from './order-list/order-list.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ChatboardComponent } from './chatboard/chatboard.component';
+import { UserGraphqlComponent } from './user-graphql/user-graphql.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ChatboardComponent } from './chatboard/chatboard.component';
     ListFruitsComponent,
     OrderListComponent,
     UsersListComponent,
-    ChatboardComponent
+    ChatboardComponent,
+    UserGraphqlComponent
   ],
   imports: [
     CommonModule,

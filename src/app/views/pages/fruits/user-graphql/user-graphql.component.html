@@ -1,0 +1,34 @@
+<table>
+    <thead>
+        <tr>Select columns need to be fetched</tr>
+        <tr>
+            <th *ngFor="let col of tableCols">
+                <span style="padding: 5px 15px;">
+                    <input type="checkbox" [(ngModel)]="col.isSelected"/>
+                    {{col.prop}}
+                </span>
+            </th>
+        </tr>
+    </thead>
+</table>
+<button class="btn btn-sm btn-primary" (click)="getDataBtnClicked()">
+    Get Data
+</button>
+<br/>
+<hr>
+<h4>User Info</h4>
+<hr/>
+<table class="table table-responsive">
+    <thead>
+        <th *ngFor="let col of getRefreshedCols()">
+            {{col.prop}}
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of tableData;let i=index">
+            <th *ngFor="let col of getRefreshedCols();let j=index">
+                {{data[getRefreshedCols()[j].prop]}}
+            </th>
+        </tr>
+    </tbody>
+</table>

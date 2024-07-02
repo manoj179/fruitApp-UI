@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "FruitApp-UI:build:production"
+              "buildTarget": "FruitApp-UI:build:production"
             },
             "development": {
-              "browserTarget": "FruitApp-UI:build:development"
+              "buildTarget": "FruitApp-UI:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FruitApp-UI:build"
+            "buildTarget": "FruitApp-UI:build"
           }
         },
         "test": {
